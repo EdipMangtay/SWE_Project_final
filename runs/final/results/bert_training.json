@@ -1,0 +1,31 @@
+{
+  "base": "google-bert/bert-base-multilingual-cased",
+  "revision": "3f076fdb1ab68d5b2880cb87a0886f315b8146f8",
+  "device": "cpu",
+  "batch_size": 16,
+  "tokens": 64,
+  "trainable_parameters": 14767874,
+  "frozen_lower_blocks": 10,
+  "optimizer": "AdamW",
+  "learning_rate": 4e-05,
+  "epochs": [
+    {
+      "epoch": 1,
+      "train_loss": 0.3572087583169341,
+      "val_macro_f1": 0.8412698412698413,
+      "threshold": 0.7499999999999999
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.22627999799326062,
+      "val_macro_f1": 0.8609751084998609,
+      "threshold": 0.5249999999999999
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.13797864299477078,
+      "val_macro_f1": 0.8777777777777778,
+      "threshold": 0.575
+    }
+  ]
+}

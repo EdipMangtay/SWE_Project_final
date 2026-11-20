@@ -1,0 +1,37 @@
+{
+  "mode": "final",
+  "source": "https://huggingface.co/datasets/Heliosoph/Jigsaw-Toxic-Comments/resolve/78e67fb081bc05846a90e944d7bb8f2f4d36e438/train.csv.gz",
+  "input_sha256": "d27aedebd2e31e3203e667e5d162a17f14ae04a6e55a5894798a7d1902f4bbe5",
+  "raw": 159571,
+  "eligible": 159295,
+  "eligible_offensive": 16167,
+  "conflicting_text_groups": 13,
+  "sample": 5000,
+  "seed": 42,
+  "splits": {
+    "train": {
+      "rows": 4000,
+      "clean": 3594,
+      "offensive": 406,
+      "offensive_pct": 10.15,
+      "mean_chars": 420.92725,
+      "id_sha256": "3a86e9bea3706a5ff27782871ba35baf5ab4433946f1fca86a6dfb9211c1412c"
+    },
+    "validation": {
+      "rows": 500,
+      "clean": 449,
+      "offensive": 51,
+      "offensive_pct": 10.2,
+      "mean_chars": 413.96,
+      "id_sha256": "c830450a42aba86bd34582922019b4b5305d087feb24105977554019de1416fd"
+    },
+    "test": {
+      "rows": 500,
+      "clean": 450,
+      "offensive": 50,
+      "offensive_pct": 10.0,
+      "mean_chars": 365.23,
+      "id_sha256": "5662eb96a83ee8098a8958dd35c455fc46bcb2316583f75ce25b1143dfa40670"
+    }
+  }
+}

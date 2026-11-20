@@ -1,0 +1,12 @@
+{
+  "linear_modules": 74,
+  "embedding_dtype": "torch.int8",
+  "prediction": {
+    "model": "int8",
+    "label": "CLEAN",
+    "confidence": 0.9998655613890151,
+    "offensive_score": 0.0001344386109849438,
+    "latency_ms": 86.515917,
+    "display": "Thanks for the game!"
+  }
+}

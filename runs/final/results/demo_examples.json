@@ -1,0 +1,79 @@
+[
+  {
+    "input": "Thanks for your help!",
+    "prediction": {
+      "model": "int8",
+      "label": "CLEAN",
+      "confidence": 0.9998374740389409,
+      "offensive_score": 0.00016252596105914563,
+      "latency_ms": 123.737,
+      "display": "Thanks for your help!"
+    }
+  },
+  {
+    "input": "Good game, thanks for playing.",
+    "prediction": {
+      "model": "int8",
+      "label": "CLEAN",
+      "confidence": 0.999809257031302,
+      "offensive_score": 0.0001907429686980322,
+      "latency_ms": 23.84825,
+      "display": "Good game, thanks for playing."
+    }
+  },
+  {
+    "input": "You are a stupid idiot.",
+    "prediction": {
+      "model": "int8",
+      "label": "OFFENSIVE",
+      "confidence": 0.999794065952301,
+      "offensive_score": 0.999794065952301,
+      "latency_ms": 23.899917,
+      "display": "••••  Message hidden"
+    }
+  },
+  {
+    "input": "You are such an id1ot. Shut up!",
+    "prediction": {
+      "model": "int8",
+      "label": "CLEAN",
+      "confidence": 0.8749483078718185,
+      "offensive_score": 0.12505169212818146,
+      "latency_ms": 23.081,
+      "display": "You are such an id1ot. Shut up!"
+    }
+  },
+  {
+    "input": "You are a useless idiot. Stop wasting everyone's time.",
+    "prediction": {
+      "model": "int8",
+      "label": "OFFENSIVE",
+      "confidence": 0.9997387528419495,
+      "offensive_score": 0.9997387528419495,
+      "latency_ms": 28.720291,
+      "display": "••••  Message hidden"
+    }
+  },
+  {
+    "input": "You are a stupid id1ot.",
+    "prediction": {
+      "model": "int8",
+      "label": "OFFENSIVE",
+      "confidence": 0.9847043752670288,
+      "offensive_score": 0.9847043752670288,
+      "latency_ms": 21.586708,
+      "display": "••••  Message hidden"
+    }
+  },
+  {
+    "input": "Thanks for the game!",
+    "prediction": {
+      "model": "int8",
+      "label": "CLEAN",
+      "confidence": 0.9998655613890151,
+      "offensive_score": 0.0001344386109849438,
+      "latency_ms": 16.040709,
+      "display": "Thanks for the game!"
+    }
+  }
+]

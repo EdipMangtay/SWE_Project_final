@@ -1,0 +1,118 @@
+[
+  {
+    "macro_f1": 0.7852399255498408,
+    "accuracy": 0.922,
+    "offensive_precision": 0.6078431372549019,
+    "offensive_recall": 0.62,
+    "tn": 430,
+    "fp": 20,
+    "fn": 19,
+    "tp": 31,
+    "confusion_matrix": [
+      [
+        430,
+        20
+      ],
+      [
+        19,
+        31
+      ]
+    ],
+    "model": "tfidf",
+    "name": "TF-IDF + logistic regression",
+    "size_mb": 0.618794,
+    "mean_ms": 0.3303335266666667,
+    "median_ms": 0.277458,
+    "p95_ms": 0.6533166999999975,
+    "test_n": 500,
+    "test_sha256": "5662eb96a83ee8098a8958dd35c455fc46bcb2316583f75ce25b1143dfa40670",
+    "runs": 150
+  },
+  {
+    "macro_f1": 0.7920874420815017,
+    "accuracy": 0.916,
+    "offensive_precision": 0.5625,
+    "offensive_recall": 0.72,
+    "tn": 422,
+    "fp": 28,
+    "fn": 14,
+    "tp": 36,
+    "confusion_matrix": [
+      [
+        422,
+        28
+      ],
+      [
+        14,
+        36
+      ]
+    ],
+    "model": "neural",
+    "name": "Word2Vec + neural network",
+    "size_mb": 2.071542,
+    "mean_ms": 0.10150304666666665,
+    "median_ms": 0.06747900000000001,
+    "p95_ms": 0.32030394999999984,
+    "test_n": 500,
+    "test_sha256": "5662eb96a83ee8098a8958dd35c455fc46bcb2316583f75ce25b1143dfa40670",
+    "runs": 150
+  },
+  {
+    "macro_f1": 0.800207783904739,
+    "accuracy": 0.93,
+    "offensive_precision": 0.6595744680851063,
+    "offensive_recall": 0.62,
+    "tn": 434,
+    "fp": 16,
+    "fn": 19,
+    "tp": 31,
+    "confusion_matrix": [
+      [
+        434,
+        16
+      ],
+      [
+        19,
+        31
+      ]
+    ],
+    "model": "bert",
+    "name": "Multilingual BERT · FP32",
+    "size_mb": 714.364551,
+    "mean_ms": 25.179865053333337,
+    "median_ms": 26.656542,
+    "p95_ms": 28.621864249999998,
+    "test_n": 500,
+    "test_sha256": "5662eb96a83ee8098a8958dd35c455fc46bcb2316583f75ce25b1143dfa40670",
+    "runs": 150
+  },
+  {
+    "macro_f1": 0.8262312357761858,
+    "accuracy": 0.938,
+    "offensive_precision": 0.6938775510204082,
+    "offensive_recall": 0.68,
+    "tn": 435,
+    "fp": 15,
+    "fn": 16,
+    "tp": 34,
+    "confusion_matrix": [
+      [
+        435,
+        15
+      ],
+      [
+        16,
+        34
+      ]
+    ],
+    "model": "int8",
+    "name": "Multilingual BERT · INT8",
+    "size_mb": 182.926614,
+    "mean_ms": 35.03822694,
+    "median_ms": 39.3538335,
+    "p95_ms": 45.07587965,
+    "test_n": 500,
+    "test_sha256": "5662eb96a83ee8098a8958dd35c455fc46bcb2316583f75ce25b1143dfa40670",
+    "runs": 150
+  }
+]

@@ -1,0 +1,13 @@
+.venv/
+.work/
+data/raw/
+data/processed/
+runs/dev/
+runs/*/data/
+runs/*/artifacts/
+weights/
+delivery/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.DS_Store

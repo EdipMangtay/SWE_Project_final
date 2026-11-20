@@ -1,0 +1,892 @@
+{
+  "tfidf": [
+    {
+      "id": "086f9c789ef207a0",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.4693457887541695
+    },
+    {
+      "id": "0ab3c30c6c0c3614",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.48243331419940527
+    },
+    {
+      "id": "18fb9d8009a1488e",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.23549066367650365
+    },
+    {
+      "id": "1cdfe3cb30f3e830",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.732103406092943
+    },
+    {
+      "id": "259514dc631f329e",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.571071148507688
+    },
+    {
+      "id": "2c10f556280659b9",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.32848827705631667
+    },
+    {
+      "id": "3457ece9e202c967",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.41564476330457073
+    },
+    {
+      "id": "375a29c1bf088077",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.46070615337889387
+    },
+    {
+      "id": "398d26102c3f6658",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.5280311058294855
+    },
+    {
+      "id": "3f38c83c08afb03f",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.871354715624647
+    },
+    {
+      "id": "44d920be70a701bf",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.5120122499546885
+    },
+    {
+      "id": "46a9550937a1c1be",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.22169755506026223
+    },
+    {
+      "id": "50df897097902aec",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.8826219916386411
+    },
+    {
+      "id": "53d97db879ff5861",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.031004826475267824
+    },
+    {
+      "id": "5bd899fe27a4897d",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.19983848513663105
+    },
+    {
+      "id": "60a49b889c24c0e9",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.2859306628399182
+    },
+    {
+      "id": "615be0e5166e6e7b",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.4714177475791765
+    },
+    {
+      "id": "6a5b44a46a9d4fae",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.07183745447454858
+    },
+    {
+      "id": "6e0204b7e625f7f3",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.41238421234854095
+    },
+    {
+      "id": "779c81facf11970b",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.22530520696788484
+    },
+    {
+      "id": "79640a69cf4cbe30",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.16922488588013915
+    },
+    {
+      "id": "7e96839b3ff2e5c8",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.6382445379487192
+    },
+    {
+      "id": "8279457e74a5dc50",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.5725204803486326
+    },
+    {
+      "id": "8f90c35d856a22ed",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.5976288677363685
+    },
+    {
+      "id": "96dbb22af12ebd96",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.22908347629636566
+    },
+    {
+      "id": "988470081569ec61",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.578094761343269
+    },
+    {
+      "id": "9cb7c693bc3d941f",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.5420574316223066
+    },
+    {
+      "id": "9e39eb48b71d7f14",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.12574006010470962
+    },
+    {
+      "id": "a01a42d07784c1b4",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.1981306794618748
+    },
+    {
+      "id": "a43a5be8a17eb6a4",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.2199229171740952
+    },
+    {
+      "id": "b4545c7c8f1ff6fb",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.48926801902346534
+    },
+    {
+      "id": "b99857648fa10ca7",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.42916056199556246
+    },
+    {
+      "id": "ccad2d2e1cb294ea",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.31236873180323455
+    },
+    {
+      "id": "d2d60d35ebb3a993",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.48638753757545067
+    },
+    {
+      "id": "ed56804c4ff01ef6",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.6344816716782223
+    },
+    {
+      "id": "f694c7a44f549e2b",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.4305410188058214
+    },
+    {
+      "id": "f6ff803c2aed3e97",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.1077216555461377
+    },
+    {
+      "id": "fb4e775f713d3f05",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.37295038235954137
+    },
+    {
+      "id": "ffc87c6eb1ed4616",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.23162498272046933
+    }
+  ],
+  "neural": [
+    {
+      "id": "03f0e2f656d47e26",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.6956479549407959
+    },
+    {
+      "id": "137c207d50263d44",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.553093671798706
+    },
+    {
+      "id": "18fb9d8009a1488e",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.06055598333477974
+    },
+    {
+      "id": "1cdfe3cb30f3e830",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.8358874917030334
+    },
+    {
+      "id": "35152ea1500a572c",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.6384621858596802
+    },
+    {
+      "id": "375a29c1bf088077",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.8912137150764465
+    },
+    {
+      "id": "398d26102c3f6658",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.5892404317855835
+    },
+    {
+      "id": "3f38c83c08afb03f",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9745571613311768
+    },
+    {
+      "id": "46a9550937a1c1be",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.3382185101509094
+    },
+    {
+      "id": "4c26c01e69b2d1d9",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.4752384126186371
+    },
+    {
+      "id": "4faa6932fe674f53",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9772258996963501
+    },
+    {
+      "id": "50df897097902aec",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.7693167328834534
+    },
+    {
+      "id": "53d97db879ff5861",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.024837102741003036
+    },
+    {
+      "id": "552eea5f1cc8c495",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.5907244086265564
+    },
+    {
+      "id": "5bd899fe27a4897d",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.3362993896007538
+    },
+    {
+      "id": "5d00665f36ffb83b",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.5639938116073608
+    },
+    {
+      "id": "65142cb5558f986e",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9566015005111694
+    },
+    {
+      "id": "65fd4545799dd593",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.23912747204303741
+    },
+    {
+      "id": "6a5b44a46a9d4fae",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.2460336834192276
+    },
+    {
+      "id": "7d86f07eadb0667e",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.8046006560325623
+    },
+    {
+      "id": "7e96839b3ff2e5c8",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9858214259147644
+    },
+    {
+      "id": "8f90c35d856a22ed",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.6093088984489441
+    },
+    {
+      "id": "98ceb65f7c0eb29d",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.8185470104217529
+    },
+    {
+      "id": "9e39eb48b71d7f14",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.030047018080949783
+    },
+    {
+      "id": "a01a42d07784c1b4",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.07890021800994873
+    },
+    {
+      "id": "a43a5be8a17eb6a4",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.11235949397087097
+    },
+    {
+      "id": "a88068c66f430f2e",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.8855696320533752
+    },
+    {
+      "id": "b4545c7c8f1ff6fb",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9261905550956726
+    },
+    {
+      "id": "b8cf13c4b991f48c",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.351022332906723
+    },
+    {
+      "id": "c04210f9b9d16102",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.262779176235199
+    },
+    {
+      "id": "d0721cb29a3c24b4",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.6583735942840576
+    },
+    {
+      "id": "d2d60d35ebb3a993",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.7796055674552917
+    },
+    {
+      "id": "df75b6d5759ea7cb",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.6751424074172974
+    },
+    {
+      "id": "ea6860438ca49a2c",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.5507398247718811
+    },
+    {
+      "id": "ebaadb1e33cc8f14",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.6584582328796387
+    },
+    {
+      "id": "ed56804c4ff01ef6",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.8324298858642578
+    },
+    {
+      "id": "f36a26863844a0aa",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.7330910563468933
+    },
+    {
+      "id": "f694c7a44f549e2b",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9934846758842468
+    },
+    {
+      "id": "f6ff803c2aed3e97",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.1145738735795021
+    },
+    {
+      "id": "f91420ccbabe105b",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.7832944393157959
+    },
+    {
+      "id": "fa59e63c5ac26ba5",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.8427746295928955
+    },
+    {
+      "id": "ffc87c6eb1ed4616",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.18312612175941467
+    }
+  ],
+  "bert": [
+    {
+      "id": "03f0e2f656d47e26",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9911674857139587
+    },
+    {
+      "id": "064b295e5fa56fbc",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9181113243103027
+    },
+    {
+      "id": "18fb9d8009a1488e",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.00030858837999403477
+    },
+    {
+      "id": "1f9dbf21f446c583",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9628314971923828
+    },
+    {
+      "id": "28420a1d630779e7",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9310727715492249
+    },
+    {
+      "id": "2c10f556280659b9",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.001365589676424861
+    },
+    {
+      "id": "30d258725740dbc7",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.36766543984413147
+    },
+    {
+      "id": "3b9fa7d56080e62a",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9046397805213928
+    },
+    {
+      "id": "3f38c83c08afb03f",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.688498318195343
+    },
+    {
+      "id": "3fc70245f52744e6",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.3624357581138611
+    },
+    {
+      "id": "46a9550937a1c1be",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.0015039535937830806
+    },
+    {
+      "id": "50df897097902aec",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9335899353027344
+    },
+    {
+      "id": "52c3a4d459e99fcb",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.00048722929204814136
+    },
+    {
+      "id": "53d97db879ff5861",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.00035961606772616506
+    },
+    {
+      "id": "5bd899fe27a4897d",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.0006824573501944542
+    },
+    {
+      "id": "60a49b889c24c0e9",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.10966067761182785
+    },
+    {
+      "id": "6a5b44a46a9d4fae",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.013950146734714508
+    },
+    {
+      "id": "6e0204b7e625f7f3",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.004959091078490019
+    },
+    {
+      "id": "779c81facf11970b",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.024010591208934784
+    },
+    {
+      "id": "79640a69cf4cbe30",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.023888714611530304
+    },
+    {
+      "id": "817aea4a7d921895",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.8973077535629272
+    },
+    {
+      "id": "98ceb65f7c0eb29d",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.7990739345550537
+    },
+    {
+      "id": "9e39eb48b71d7f14",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.11239591240882874
+    },
+    {
+      "id": "a01a42d07784c1b4",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.0018222949001938105
+    },
+    {
+      "id": "a43a5be8a17eb6a4",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.0014760259073227644
+    },
+    {
+      "id": "b300ce577f62b216",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.999416708946228
+    },
+    {
+      "id": "c04210f9b9d16102",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.00039780695806257427
+    },
+    {
+      "id": "c0ce5b7d0527c101",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.7513971924781799
+    },
+    {
+      "id": "ccbfb563855c45f0",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9970604777336121
+    },
+    {
+      "id": "d8281c341f6322fb",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.825101912021637
+    },
+    {
+      "id": "dc4b2391634ccbbb",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.2778705954551697
+    },
+    {
+      "id": "e91351bd26a1214b",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9991680383682251
+    },
+    {
+      "id": "ed56804c4ff01ef6",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9940590858459473
+    },
+    {
+      "id": "f694c7a44f549e2b",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9366061687469482
+    },
+    {
+      "id": "f6ff803c2aed3e97",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.00013044376100879163
+    }
+  ],
+  "int8": [
+    {
+      "id": "03f0e2f656d47e26",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9671546220779419
+    },
+    {
+      "id": "064b295e5fa56fbc",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.8304339647293091
+    },
+    {
+      "id": "18fb9d8009a1488e",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.0008837731438688934
+    },
+    {
+      "id": "1f9dbf21f446c583",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.7116480469703674
+    },
+    {
+      "id": "28420a1d630779e7",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.76643306016922
+    },
+    {
+      "id": "2c10f556280659b9",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.009369759820401669
+    },
+    {
+      "id": "3b9fa7d56080e62a",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9735137224197388
+    },
+    {
+      "id": "406cbafa5a9007f5",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.8745042085647583
+    },
+    {
+      "id": "46a9550937a1c1be",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.0007537574856542051
+    },
+    {
+      "id": "4af49e360bc08a89",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9663137197494507
+    },
+    {
+      "id": "50df897097902aec",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.991184651851654
+    },
+    {
+      "id": "52c3a4d459e99fcb",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.0005625230260193348
+    },
+    {
+      "id": "5333ef98406c5c5d",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.839192807674408
+    },
+    {
+      "id": "53d97db879ff5861",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.000347451597917825
+    },
+    {
+      "id": "5bd899fe27a4897d",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.0005383890238590539
+    },
+    {
+      "id": "65702c6081b3093b",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.830757200717926
+    },
+    {
+      "id": "6a5b44a46a9d4fae",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.00875796377658844
+    },
+    {
+      "id": "779c81facf11970b",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.004432725720107555
+    },
+    {
+      "id": "79640a69cf4cbe30",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.011236609891057014
+    },
+    {
+      "id": "9e39eb48b71d7f14",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.007053024135529995
+    },
+    {
+      "id": "a01a42d07784c1b4",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.0004724825266748667
+    },
+    {
+      "id": "a43a5be8a17eb6a4",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.03203283250331879
+    },
+    {
+      "id": "b300ce577f62b216",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9983401298522949
+    },
+    {
+      "id": "b4545c7c8f1ff6fb",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.5845893621444702
+    },
+    {
+      "id": "c04210f9b9d16102",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.0005461692344397306
+    },
+    {
+      "id": "ccbfb563855c45f0",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9964757561683655
+    },
+    {
+      "id": "dc4b2391634ccbbb",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.06766624748706818
+    },
+    {
+      "id": "e91351bd26a1214b",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.8304323554039001
+    },
+    {
+      "id": "ed56804c4ff01ef6",
+      "true": 0,
+      "predicted": 1,
+      "offensive_score": 0.9956575632095337
+    },
+    {
+      "id": "f6ff803c2aed3e97",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.00016495781892444938
+    },
+    {
+      "id": "ffc87c6eb1ed4616",
+      "true": 1,
+      "predicted": 0,
+      "offensive_score": 0.018678896129131317
+    }
+  ]
+}
