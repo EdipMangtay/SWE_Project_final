@@ -2,13 +2,26 @@
 
 SentinelAI is a Streamlit chat application for SWE015 Use Case 4. It flags English messages, masks flagged text, reports model confidence and times every prediction on CPU. The default model is the reloaded INT8 version of the fine-tuned multilingual BERT. Click **Compare all four models** after sending a message to compare live decisions.
 
+**Ali Edip Mangtay · 210911044 · İstinye University**
+
+| Course material | File |
+|---|---|
+| Ten-slide presentation | [Presentation PDF](docs/presentation.pdf) |
+| Methods, results and error analysis | [Technical report PDF](docs/technical_report.pdf) |
+| Video preparation and timed English narration | [Recording guide PDF](docs/video_rehberi.pdf) |
+| Measured results for all four models | [Comparison CSV](runs/final/results/comparison.csv) |
+
 ## Run the project
 
 **On the project Mac.** The desktop project already has its four trained artifacts and a Python environment. Double-click `Baslat.command` or run it in Terminal from the project folder.
 
 **On a fresh machine.** Use 64-bit Python 3.12 and a PyTorch CPU build with an INT8 linear backend. The measured machine had 36 GB of RAM. Allow several GB of disk space for PyTorch, the base checkpoint and restored models.
 
-On macOS, run `zsh Baslat.command` from the extracted or cloned project directory. It installs the dependencies on first use. A source-only checkout trains all four models from the pinned public sources on its first launch. With the portable project ZIP, it restores the measured checkpoint instead. Later launches reuse the local models.
+**For the exact submitted models**, download [the four trained models](https://github.com/EdipMangtay/SWE_Project_final/releases/download/v1.0.0/SentinelAI_Trained_Models.zip) and extract the contents into the repository root. The directory `runs/final/artifacts/int8/` should now contain `int8.pt`. The ZIP's SHA-256 is `c8daf07122491d168b456432391803f8e295cf4c96c1029ddf4b5b15a7e1629a`. The released files include the tokenizer and both BERT checkpoints. After installing the pinned dependencies, this setup runs without downloading data or training.
+
+On macOS, run `zsh Baslat.command` from the project directory. It installs the dependencies on first use and starts Streamlit. With the model files extracted, it loads the existing checkpoints. Without model files, a source-only checkout trains the four models from the pinned public sources. A compact portable project with the training patch is also available on the [release page](https://github.com/EdipMangtay/SWE_Project_final/releases/tag/v1.0.0).
+
+For manual setup, including on other platforms:
 
 ```sh
 python3.12 -m venv .venv
@@ -16,7 +29,7 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-For a source-only checkout on other platforms, run `python -m scripts.train_all --mode final` before the application launch command below. If you have the portable project ZIP, it includes trained TF-IDF and Word2Vec artifacts, tokenizers and a lossless BERT training patch under `weights/`. Restore the full FP32 model and export INT8 once:
+If you extracted the trained models, proceed directly to the application launch command below. For a source-only checkout without fitted models, run `python -m scripts.train_all --mode final`. For the compact portable project ZIP, which includes trained TF-IDF and Word2Vec artifacts, tokenizers and a lossless BERT patch under `weights/`, restore the full FP32 model and export INT8 once:
 
 ```sh
 python -m scripts.restore_models
@@ -82,7 +95,7 @@ The independent Levenshtein lexicon baseline is evaluated alongside a TF-IDF/log
 
 ## Submission and links
 
-Update `docs/submission.json` with the actual repository, video and optional hosted portable model package. Run `python -m scripts.presentation` to regenerate the PDF with clickable cover links. A source-only checkout can recreate all four models with `python -m scripts.train_all --mode final`. For one-time restoration without training, give the instructor the portable package via Hugging Face or Google Drive. Keep full model files, portable patches and raw data out of Git. The source export command is `python -m scripts.source_archive`.
+After recording, enter the unlisted YouTube or link-accessible Google Drive URL in the `video_url` field of `docs/submission.json`. Run `python -m scripts.presentation` to regenerate the presentation, and publish the updated configuration and PDF. The code and model download links are already configured. The cover needs both the repository and video link for course submission. Use `python -m scripts.handouts` to regenerate the technical report and recording guide from their Markdown sources.
 
 ## Troubleshooting
 

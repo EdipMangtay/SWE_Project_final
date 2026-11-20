@@ -1,41 +1,82 @@
-# SentinelAI experiment report
+# SentinelAI
+## Real-time moderation of English gaming chat
+Ali Edip Mangtay · 210911044 · SWE015 Introduction to Large Language Models · Use Case 4
 
-**Question.** Can an INT8 version of a fine-tuned multilingual BERT moderate one English message in under 50 ms on average while preserving useful detection of the minority class?
+### Research question
+Can a quantized multilingual BERT screen one English message on CPU within a mean budget of 50 milliseconds, while still detecting abusive language? This experiment compares four models on identical held-out messages and deploys the quantized model in an interactive chat.
 
-## Data and split
+### Principal finding
+The INT8 model reached macro-F1 0.8262 on 500 test comments. Its mean inference time was 35.04 ms and its model directory occupied 182.93 MB. Full-precision BERT took 25.18 ms and occupied 714.36 MB. Quantization reduced storage by 74.4% on this system, with a 9.86 ms increase in average processing time.
 
-We used the public Jigsaw Toxic Comment Classification Challenge training file, mirrored by Heliosoph. The 159,571 input rows include six human-labeled toxicity flags. A value of one in any flag produces OFFENSIVE. Every flag must be zero for CLEAN. Official unlabeled test data was excluded.
+### Data and labels
+The pinned Jigsaw training file contains 159,571 English Wikipedia comments with six toxicity flags. Any positive flag maps to OFFENSIVE. Six zeros map to CLEAN. Grouping by normalized text, discarding conflicting groups (13) and removing duplicates left 159,295 eligible rows. Stratified sampling with seed 42 selected 5,000 comments for the local experiment.
 
-We grouped comments by normalized, case-folded text after the 4,096-character cap. We discarded groups with conflicting binary labels, including 13 conflicting groups, and retained one stable ID per remaining group. There were 159,295 eligible records. Seed 42 selected 5,000 stratified examples for a manageable CPU run. Training used 4,000 comments (406 offensive), validation used 500 (51 offensive), and testing used 500 (50 offensive). Mean original comment lengths were 421, 414 and 365 characters respectively. The stored ID lists and prediction CSVs identify every example.
+| Split | Messages | Clean | Offensive | Used for |
+|---|---:|---:|---:|---|
+| Training | 4,000 | 3,594 | 406 | Fit features and model parameters |
+| Validation | 500 | 449 | 51 | Select thresholds and checkpoints |
+| Held-out test | 500 | 450 | 50 | Compare final predictions |
 
-## Training
+A classifier that marked every test message clean would score 90% accuracy and detect zero offensive comments. Macro-F1 gives equal weight to the clean and offensive class F1 scores. The project also reports offensive recall to show how many abusive comments a moderator would miss.
 
-| Model | Fitting and selection |
-|---|---|
-| TF-IDF + logistic regression | Word unigrams/bigrams with minimum document frequency 2, sublinear TF and balanced class weights. C=4 won the two-value validation search. The selected threshold was 0.425. |
-| Word2Vec + neural network | Train skip-gram with a context window of two and five negatives on training text. Average known 64-dimensional word vectors. Fit a 64-unit ReLU hidden layer with 20% dropout and weighted binary cross-entropy. Validation selected epoch 17 and a 0.55 threshold. |
-| Multilingual BERT | Keep the cased WordPiece model. Freeze embeddings plus the lower ten of twelve blocks. Train 14,767,874 parameters in the last two blocks, pooler and classification head with AdamW, 4e-5, batch 16, up to 64 tokens. Epoch 3 had the best validation macro-F1 (0.878). Threshold 0.575. |
-| Quantized multilingual BERT | Starting from the winning FP32 checkpoint, convert 74 linear layers to dynamic INT8, and store the large word embedding as signed INT8 with one FP32 scale per vocabulary row. Retain the FP32 threshold. Remaining floating-point operations include layer normalization and softmax. |
+<!-- page -->
+## System design and training
+The browser sends a new message to Streamlit. The application validates it, loads the selected model from its local cache and runs inference on CPU. Entering text uses the active model. The comparison button runs the same last input through all four.
 
-The independent edit-distance rule accepts word-to-lexicon distance at most one. Example: `id1otx` normalizes to `idiotx`, one edit from `idiot`. Used alone, the rule achieved macro-F1 0.639 and recalled 10 of 50 offensive comments. No learned model uses the rule to override its decisions.
+![Message flow from the chat box to the moderation result](figures/architecture.png)
 
-## Held-out results
+### The four model paths
+**TF-IDF + logistic regression.** Unicode and regex processing normalize noisy spellings before word unigram and bigram extraction. The model uses sublinear term frequency, minimum document frequency two and balanced class weights. Validation selected C = 4 and threshold 0.425.
 
-| Model | Macro-F1 | Accuracy | Offensive precision | Offensive recall | FP / FN | Size MB | Mean ms | Median ms | P95 ms |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| TF-IDF + LR | 0.7852 | 92.2% | 0.608 | 0.620 | 20 / 19 | 0.62 | 0.330 | 0.277 | 0.653 |
-| Word2Vec + NN | 0.7921 | 91.6% | 0.563 | 0.720 | 28 / 14 | 2.07 | 0.102 | 0.067 | 0.320 |
-| BERT FP32 | 0.8002 | 93.0% | 0.660 | 0.620 | 16 / 19 | 714.36 | 25.180 | 26.657 | 28.622 |
-| BERT INT8 | 0.8262 | 93.8% | 0.694 | 0.680 | 15 / 16 | 182.93 | 35.038 | 39.354 | 45.076 |
+**Word2Vec + feedforward network.** Skip-gram learned 64-dimensional embeddings from training messages using a window of two and five negative samples. A 64-unit ReLU layer, 20% dropout and a weighted binary loss classify the mean word vector. Validation selected epoch 17 and threshold 0.55.
 
-Each model scored the same 500 held-out messages individually. We then used 15 warm-ups and the same 150 single-message timed inputs. Timings include normalization, tokenization/featurization, the forward pass and the decision. They exclude model loading, user-interface rendering and allocation of a new session. Model sizes use decimal MB across the complete runnable model directory, with vocabulary/tokenizer and metadata included. The portable distribution patch is excluded from size comparisons.
+**Multilingual BERT FP32.** The original cased WordPiece tokenizer processes up to 64 tokens. The embeddings and lower ten blocks remain frozen. AdamW updated 14,767,874 parameters in the top two blocks, pooler and head using a learning rate of 0.00004 and batches of 16. Epoch three achieved validation macro-F1 0.878 at threshold 0.575.
 
-Testing ran on an Apple M3 Pro (12 cores, 36 GB), macOS 27.2.1 arm64, Python 3.12.15, with four PyTorch intra-op threads. PyTorch 2.14.1 and Transformers 5.20.2 were used for training and inference. The INT8 engine was QNNPACK.
+**Multilingual BERT INT8.** The selected checkpoint supplied the weights for 74 dynamically quantized linear layers and row-wise signed INT8 word embeddings. Layer normalization and other operations use floating point. The quantized model inherits the FP32 threshold. It is the application's default.
 
-## Interpretation and limits
+An independent edit-distance lexicon allows one spelling edit. On its own it detected 10 of 50 offensive test comments, for macro-F1 0.639. It supplies a comparison signal. It does not override the learned model's decision.
 
-INT8 used 74.4% less disk space than FP32. It ran about 9.86 ms slower on average while remaining within the predeclared 50 ms mean budget. Dynamic activation quantization and backend overhead are plausible explanations for the speed difference; neither was profiled separately. INT8 also had the highest macro-F1 on this test. This single 50-positive split cannot establish that quantization consistently improves accuracy. Word2Vec had the highest offensive recall but also masked 28 clean comments.
+<!-- page -->
+## Benchmark and moderation errors
+All four models scored the same 500 held-out IDs. Each model also processed the same 150 timed single-message inputs after 15 warm-ups. Hardware was an Apple M3 Pro (12 cores, 36 GB) with four PyTorch threads. The timer covers model preprocessing, inference and the decision. Loading and browser rendering fall outside it. Size is the complete runnable model directory in decimal MB.
 
-An actual false negative, ID `779c81facf11970b`, reads “Somebody out there hates you ... See here.” Human label OFFENSIVE; INT8 offensive score 0.0044; output CLEAN. This kind of contextual hostility warrants a separate short-chat evaluation. The single-message system has no conversation history as model input. The confidence scores are uncalibrated. English Wikipedia talk pages differ from live gaming chat. Although the encoder was pretrained in many languages, this experiment evaluated only English. Future work should gather labeled game messages, compare context windows and calibrate scores on validation data.
+| Model | Macro-F1 | Accuracy | Size (MB) | Mean (ms) | P95 (ms) |
+|---|---:|---:|---:|---:|---:|
+| TF-IDF + logistic regression | 0.7852 | 92.2% | 0.62 | 0.330 | 0.653 |
+| Word2Vec + neural network | 0.7921 | 91.6% | 2.07 | 0.102 | 0.320 |
+| Multilingual BERT FP32 | 0.8002 | 93.0% | 714.36 | 25.180 | 28.622 |
+| Multilingual BERT INT8 | 0.8262 | 93.8% | 182.93 | 35.038 | 45.076 |
 
-See `runs/final/results/` for the raw measurements and the four prediction files. The curves and confusion matrices are in `docs/figures/`.
+### Which errors would a moderator see?
+| Model | Offensive precision | Offensive recall | Clean hidden | Offensive missed |
+|---|---:|---:|---:|---:|
+| TF-IDF + logistic regression | 60.8% | 62.0% | 20 | 19 |
+| Word2Vec + neural network | 56.3% | 72.0% | 28 | 14 |
+| Multilingual BERT FP32 | 66.0% | 62.0% | 16 | 19 |
+| Multilingual BERT INT8 | 69.4% | 68.0% | 15 | 16 |
+
+TF-IDF had the smallest footprint. Word2Vec was fastest and detected the most offensive comments, at the cost of hiding 28 clean messages. FP32 was the faster BERT. INT8 had the highest macro-F1, caught 34 of 50 offensive comments and hid 15 of 450 clean comments. Its 35.04 ms mean met the preset budget. Individual requests can take longer.
+
+### A missed case
+“Somebody out there hates you ... See here.” The Jigsaw label was OFFENSIVE. INT8 returned CLEAN with an offensive score of 0.0044, below its threshold of 0.575. The example illustrates the difficulty of detecting indirect hostility from a single message. The original test ID is `779c81facf11970b`.
+
+<!-- page -->
+## Reproduction and limits
+### Running the submitted system
+Clone the linked repository and extract the trained-model release into its root. Install the pinned requirements with Python 3.12 and run `streamlit run app.py`. On macOS, `zsh Baslat.command` also sets up the local environment. The release includes the fitted classical and neural models, tokenizers and both BERT variants.
+
+The measured configuration used Python 3.12.15, PyTorch 2.14.1, Transformers 5.20.2 and QNNPACK on macOS arm64. The source includes the pinned data and pretrained model revisions, split IDs, prediction CSVs, training histories and individual benchmark timings. The test suite covers preprocessing, reload, inference, masking, changing models, comparison and session reset.
+
+### Limitations and next experiment
+The test set contains 50 offensive examples from Wikipedia discussions. A two-example disagreement changes offensive recall by four percentage points. The observed INT8 advantage in macro-F1 could change on another sample. The confidence shown in the chat is a model score, not a calibrated probability of harm.
+
+Short game chat has different vocabulary, spelling and conversational context. A next experiment would label real gaming messages, distinguish direct and indirect abuse, and compare recall at several moderation thresholds. Deployment testing should measure end-to-end response times with concurrent users and cold model loads.
+
+### Evidence and attribution
+[Source code and reproduction instructions](https://github.com/EdipMangtay/SWE_Project_final) · [Held-out predictions and timing records](https://github.com/EdipMangtay/SWE_Project_final/tree/main/runs/final/results)
+
+[Jigsaw Toxic Comment Classification Challenge](https://www.kaggle.com/competitions/jigsaw-toxic-comment-classification-challenge) · [Dataset mirror used in this run](https://huggingface.co/datasets/Heliosoph/Jigsaw-Toxic-Comments)
+
+[Google multilingual BERT checkpoint](https://huggingface.co/google-bert/bert-base-multilingual-cased) · [Skip-gram and negative sampling](https://arxiv.org/abs/1310.4546) · [PyTorch dynamic quantization](https://docs.pytorch.org/docs/stable/generated/torch.ao.quantization.quantize_dynamic.html)
+
+OpenAI ChatGPT / Codex assisted with implementation, debugging, experiment tooling and drafting the report, slides and narration. The numerical results come from the executed project. Training code, recorded outputs and the presentation are available for inspection.

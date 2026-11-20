@@ -349,6 +349,7 @@ def build():
         17,
         23,
     )
+    txt(50, 467, "TF-IDF was smallest. Word2Vec was fastest. INT8 had the best macro-F1 on this test.", 15, True, TEAL)
     c.showPage()
     start(9, "Conclusion", "What the moderation system missed")
     txt(50, 170, f"{q['fn']} missed offensive messages", 27, True)

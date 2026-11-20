@@ -10,7 +10,7 @@ NOT SUBMISSION READY — CRITICAL REQUIREMENT MISSING
 | 1 | Working int8 artifact | PASS | Loaded local checkpoint and ran a real CPU forward pass. |
 | 1 | Use Case 4 and repository source | PASS | Chat moderation UI, implementation, requirements and setup present. |
 | 1 | Presentation PDF | PASS | Parsed the PDF. |
-| 1 | Accessible code repository | NOT YET VERIFIED | HTTP Error 404: Not Found |
+| 1 | Accessible code repository | PASS | HTTPS availability; verify anonymous access in a private browser. |
 | 1 | Accessible demo video | FAIL | A valid project-specific link is missing. |
 | 1 | Original results and student explanation | MANUAL CHECK | Verify experimental provenance and explain the code. Numerical consistency is checked below. |
 | 1 | Video contains live input | MANUAL CHECK | Watch the recorded stream and verify that new typed input returns a decision. |

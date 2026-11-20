@@ -40,8 +40,8 @@
     {
       "gate": 1,
       "item": "Accessible code repository",
-      "status": "NOT YET VERIFIED",
-      "evidence": "HTTP Error 404: Not Found"
+      "status": "PASS",
+      "evidence": "HTTPS availability; verify anonymous access in a private browser."
     },
     {
       "gate": 1,
