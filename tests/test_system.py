@@ -104,7 +104,8 @@ def test_app_default_chat_compare_switch_clear():
     app = AppTest.from_file(str(ROOT / "app.py"), default_timeout=120).run()
     assert not app.exception and not app.error
     assert app.selectbox[0].value == "int8"
-    for msg in ["Thanks for your help!", "You are a stupid idiot."]:
+    assert next(b for b in app.button if b.label == "Compare all four models").disabled
+    for msg in ["Thanks for your help!", "You are a stupid id1ot."]:
         app.chat_input[0].set_value(msg).run()
     assert not app.exception
     history = app.session_state["history"]
@@ -116,12 +117,11 @@ def test_app_default_chat_compare_switch_clear():
     )
     next(b for b in app.button if b.label == "Compare all four models").click().run()
     assert len(app.session_state["comparison"]) == 4
-    assert all(
-        r["Decision"] in ("CLEAN", "OFFENSIVE") for r in app.session_state["comparison"]
-    )
+    assert all(r["Decision"] == "OFFENSIVE" for r in app.session_state["comparison"])
     app.selectbox[0].select("tfidf").run()
     app.chat_input[0].set_value("Good morning").run()
     assert app.session_state["history"][-1]["model"] == "tfidf"
+    assert app.session_state["comparison"] is None
     next(b for b in app.button if b.label == "Clear session").click().run()
     assert (
         not app.exception

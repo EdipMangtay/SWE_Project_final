@@ -6,36 +6,27 @@ SentinelAI is a Streamlit chat application for SWE015 Use Case 4. It flags Engli
 
 | Course material | File |
 |---|---|
-| Ten-slide presentation | [Presentation PDF](docs/presentation.pdf) |
+| Ten-slide presentation | [PDF for submission](docs/presentation.pdf) · [PowerPoint](delivery/SentinelAI_Ali_Edip_Mangtay_210911044.pptx) · [Offline browser slides](delivery/Sunumu_Ac.html) |
 | Methods, results and error analysis | [Technical report PDF](docs/technical_report.pdf) |
 | Video preparation and timed English narration | [Recording guide PDF](docs/video_rehberi.pdf) |
 | Measured results for all four models | [Comparison CSV](runs/final/results/comparison.csv) |
 
 ## Run the project
 
-**On the project Mac.** The desktop project already has its four trained artifacts and a Python environment. Double-click `Baslat.command` or run it in Terminal from the project folder.
+On macOS with Python 3.12 installed, run `zsh Baslat.command` from the project folder. For a recording, `zsh Demoyu_Ac.command` opens the app and slide 4 in Safari. The launcher installs the pinned dependencies on first use, restores the trained models and starts Streamlit. The initial setup requires internet and several GB of free space. Later launches use the local files.
 
-**On a fresh machine.** Use 64-bit Python 3.12 and a PyTorch CPU build with an INT8 linear backend. The measured machine had 36 GB of RAM. Allow several GB of disk space for PyTorch, the base checkpoint and restored models.
-
-**For the exact submitted models**, download [the four trained models](https://github.com/EdipMangtay/SWE_Project_final/releases/download/v1.0.0/SentinelAI_Trained_Models.zip) and extract the contents into the repository root. The directory `runs/final/artifacts/int8/` should now contain `int8.pt`. The ZIP's SHA-256 is `c8daf07122491d168b456432391803f8e295cf4c96c1029ddf4b5b15a7e1629a`. The released files include the tokenizer and both BERT checkpoints. After installing the pinned dependencies, this setup runs without downloading data or training.
-
-On macOS, run `zsh Baslat.command` from the project directory. It installs the dependencies on first use and starts Streamlit. With the model files extracted, it loads the existing checkpoints. Without model files, a source-only checkout trains the four models from the pinned public sources. A compact portable project with the training patch is also available on the [release page](https://github.com/EdipMangtay/SWE_Project_final/releases/tag/v1.0.0).
-
-For manual setup, including on other platforms:
+On another computer with 64-bit Python 3.12 and a supported PyTorch CPU INT8 backend, create and activate an environment, then install the project. On Windows use `.venv\Scripts\activate` for activation.
 
 ```sh
 python3.12 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
+python -m scripts.restore_models --if-needed
 ```
 
-If you extracted the trained models, proceed directly to the application launch command below. For a source-only checkout without fitted models, run `python -m scripts.train_all --mode final`. For the compact portable project ZIP, which includes trained TF-IDF and Word2Vec artifacts, tokenizers and a lossless BERT patch under `weights/`, restore the full FP32 model and export INT8 once:
+**Where the weights come from.** Setup fetches the [pinned multilingual BERT weights from Hugging Face](https://huggingface.co/google-bert/bert-base-multilingual-cased/resolve/3f076fdb1ab68d5b2880cb87a0886f315b8146f8/model.safetensors) and the [48 MB experiment companion](https://github.com/EdipMangtay/SWE_Project_final/releases/download/v1.1.0/SentinelAI_Model_Files.zip). The companion contains the small classifiers, tokenizers and lossless changes learned in the final run. The verifier checks the base checkpoint, the companion download and all 201 restored tensors, then reloads INT8 in a separate process. The [portable project ZIP](https://github.com/EdipMangtay/SWE_Project_final/releases/download/v1.1.0/SentinelAI_SWE015.zip) already includes the companion files. An offline restore can use `python -m scripts.restore_models --base-file /path/to/model.safetensors` with the companion extracted in the project folder.
 
-```sh
-python -m scripts.restore_models
-```
-
-The restore step downloads the **pinned original 714 MB Google multilingual BERT file** from Hugging Face. All trained differences are supplied locally. Each of the 201 restored tensors is SHA-256 verified against the final experiment, then the INT8 model is produced on the target CPU and checked in a separate process. For an offline restore, provide the original pinned base file with `python -m scripts.restore_models --base-file /path/to/model.safetensors`. On the desktop project the ready-made FP32 and INT8 files already exist. The UI uses local weights and requires no API key or network after setup.
+**Prebuilt option.** The [four trained models](https://github.com/EdipMangtay/SWE_Project_final/releases/download/v1.0.0/SentinelAI_Trained_Models.zip) can also be extracted directly into the repository root. This immutable archive has SHA-256 `c8daf07122491d168b456432391803f8e295cf4c96c1029ddf4b5b15a7e1629a`. The application uses local inference after installation.
 
 **Application launch command**
 
@@ -95,7 +86,7 @@ The independent Levenshtein lexicon baseline is evaluated alongside a TF-IDF/log
 
 ## Submission and links
 
-After recording, enter the unlisted YouTube or link-accessible Google Drive URL in the `video_url` field of `docs/submission.json`. Run `python -m scripts.presentation` to regenerate the presentation, and publish the updated configuration and PDF. The code and model download links are already configured. The cover needs both the repository and video link for course submission. Use `python -m scripts.handouts` to regenerate the technical report and recording guide from their Markdown sources.
+After recording, enter the unlisted YouTube or link-accessible Google Drive URL in the `video_url` field of `docs/submission.json`. Run `python -m scripts.presentation` to regenerate the presentation, and publish the updated configuration and PDF. The code and model download links are already configured. The cover needs both the repository and video link for course submission. On macOS, to refresh the optional PowerPoint and self-contained HTML copies as well, install `python-pptx==1.0.2`, run `python -m scripts.presentation --powerpoint`, then `python -m scripts.offline_slides`. Use `python -m scripts.handouts` to regenerate the technical report and recording guide from their Markdown sources.
 
 ## Troubleshooting
 

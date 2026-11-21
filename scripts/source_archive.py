@@ -9,9 +9,13 @@ def source_files():
         "README.md",
         "BASLANGIC.md",
         "Baslat.command",
+        "Demoyu_Ac.command",
+        "delivery/Sunumu_Ac.html",
+        "delivery/SentinelAI_Ali_Edip_Mangtay_210911044.pptx",
         "app.py",
         "requirements.txt",
         ".gitignore",
+        ".gitattributes",
         ".streamlit/config.toml",
     ]:
         yield ROOT / name

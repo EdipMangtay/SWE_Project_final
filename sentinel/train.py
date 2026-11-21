@@ -1,5 +1,8 @@
 """Train on the training split and use validation only for model selection."""
 
+from pathlib import Path
+import tempfile
+
 from collections import Counter
 import joblib
 import numpy as np
@@ -314,7 +317,13 @@ def export_int8(run):
         raise ValueError(
             f"Expected 74 dynamically quantized BERT linear layers, found {count}."
         )
-    torch.save(model.state_dict(), folder / "int8.pt")
+    with tempfile.NamedTemporaryFile(dir=folder, delete=False) as handle:
+        temp = Path(handle.name)
+    try:
+        torch.save(model.state_dict(), temp)
+        temp.replace(folder / "int8.pt")
+    finally:
+        temp.unlink(missing_ok=True)
     save_json(
         folder / "metadata.json",
         {

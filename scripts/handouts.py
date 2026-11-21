@@ -49,11 +49,13 @@ TITLE = style("title", 31, 36, fontName="DocumentBold", spaceAfter=7)
 SECTION = style("section", 20, 25, fontName="DocumentBold", spaceAfter=13)
 SUB = style("sub", 12, 16, fontName="DocumentBold", spaceBefore=5, spaceAfter=4)
 CELL = style("cell", 8.3, 11.5)
+CUE = style("cue", 9.5, 13.3)
 RIGHT = style("right", 8.3, 11.5, alignment=TA_RIGHT)
 HEAD = style("thead", 8.1, 11, fontName="DocumentBold")
 HEAD.textColor = colors.white
 FRACTIONS = {
     "Split": [0.16, 0.13, 0.11, 0.13, 0.47],
+    "Süre": [0.135, 0.435, 0.43],
     "Slayt": [0.115, 0.23, 0.655],
     "Macro-F1": [0.29, 0.13, 0.14, 0.14, 0.15, 0.15],
     "Offensive precision": [0.29, 0.18, 0.17, 0.17, 0.19],
@@ -64,9 +66,10 @@ def make_table(lines):
     matrix = [[v.strip() for v in line.strip("|").split("|")] for line in lines]
     header, rules, *data = matrix
     widths = FRACTIONS.get(header[0]) or FRACTIONS[header[1]]
+    body_style = CUE if header[0] == "Süre" else CELL
     cells = [[Paragraph(escape(v), HEAD) for v in header]]
     for row in data:
-        cells.append([Paragraph(inline(v), RIGHT if rule.endswith(":") else CELL)
+        cells.append([Paragraph(inline(v), RIGHT if rule.endswith(":") else body_style)
                       for v, rule in zip(row, rules)])
     table = Table(cells, colWidths=[w * WIDTH for w in widths], repeatRows=1, hAlign="LEFT")
     table.setStyle(TableStyle([
@@ -133,4 +136,4 @@ if __name__ == "__main__":
     pdfmetrics.registerFont(TTFont("DocumentBold", str(fonts / "DejaVuSans-Bold.ttf")))
     pdfmetrics.registerFontFamily("DocumentSans", normal="DocumentSans", bold="DocumentBold")
     render("experiment_report.md", "technical_report.pdf", "Technical report")
-    render("video_rehberi.md", "video_rehberi.pdf", "Sunum ve çekim rehberi")
+    render("video_rehberi.md", "video_rehberi.pdf", "Çekim provası")

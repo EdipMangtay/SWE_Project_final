@@ -9,4 +9,6 @@ Mac’inde proje klasöründeki `Baslat.command` dosyasına çift tıkla veya Te
 - [Mac ekran kaydı adımları ve İngilizce konuşma metni](docs/video_rehberi.pdf)
 - [Deney sonuçları](runs/final/results/comparison.csv)
 
+Kayıt provası için `zsh Demoyu_Ac.command` çalıştır. Bu komut uygulamayı ve [tarayıcı sunumunu](delivery/Sunumu_Ac.html) 4. slaytta açar.
+
 Videoyu yükledikten sonra gerçek adresi `docs/submission.json` içindeki `video_url` alanına yaz. `python -m scripts.presentation` ile kapağı yenile. Teslim etmeden önce PDF’den GitHub’ı ve videoyu gizli pencerede aç. Son tarih 22 Kasım 2026 Pazar.

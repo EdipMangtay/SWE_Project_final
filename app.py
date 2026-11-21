@@ -1,10 +1,14 @@
+from html import escape
+
 import streamlit as st
 import torch
-from sentinel.config import FINAL, LIMIT, NAMES, THREADS
+from sentinel.config import FINAL, LIMIT, NAMES, ROOT, THREADS
 from sentinel.model import load_model
 from sentinel.text import lexicon_hit, validate
 
 st.set_page_config(page_title="SentinelAI · Chat moderation", layout="wide")
+stylesheet = (ROOT / "sentinel/moderation.css").read_text(encoding="utf-8")
+st.html(f"<style>{stylesheet}</style>")
 torch.set_num_threads(THREADS)
 INFO = {
     "int8": "INT8 linear layers and word embeddings. CPU inference.",
@@ -38,98 +42,174 @@ def reset_chat():
 if "history" not in st.session_state:
     reset_chat()
 
-with st.sidebar:
-    st.header("Moderation settings")
-    model_key = st.selectbox("Active model", list(NAMES), format_func=NAMES.get)
-    st.caption(INFO[model_key])
-    st.button("Clear session", on_click=reset_chat)
-    session_stats = st.container()
 
-st.title("SentinelAI")
-st.caption("Real-Time Intelligent Chat Moderation")
-st.write("Send an English message to see how the active model moderates it.")
+def compare_models(text):
+    result = []
+    for key, name in NAMES.items():
+        row = {
+            "Model": name,
+            "Decision": "Unavailable",
+            "Confidence": "—",
+            "CPU time": "—",
+        }
+        adapter, error = fetch(key)
+        if not error:
+            try:
+                prediction = adapter.predict(text)
+                row.update(
+                    {
+                        "Decision": prediction["label"],
+                        "Confidence": f"{prediction['confidence']:.1%}",
+                        "CPU time": f"{prediction['latency_ms']:.2f} ms",
+                    }
+                )
+            except (ValueError, RuntimeError) as exc:
+                st.error(f"{name}: {exc}")
+        result.append(row)
+    return result
+
+
+def decision_badge(decision):
+    tone = {"CLEAN": "clean", "OFFENSIVE": "flagged"}.get(decision, "quiet")
+    return f'<span class="verdict {tone}">{escape(decision)}</span>'
+
+
+with st.sidebar:
+    st.html(
+        '<div class="brand"><i class="brand-icon" aria-hidden="true"></i>SentinelAI</div>'
+    )
+    model_key = st.selectbox("Active model", list(NAMES), format_func=NAMES.get)
+    st.html(f'<p class="side-note">{INFO[model_key]}</p>')
+    st.divider()
+    session_stats = st.container()
+    st.button("Clear session", on_click=reset_chat, icon=":material/restart_alt:")
+
 with st.spinner("Opening the selected model…"):
     model, error = fetch(model_key)
+status = "Local CPU ready" if model is not None else "Model unavailable"
+st.html(f"""
+    <header class="masthead">
+      <div><h1>Chat moderation</h1><p>Review English game chat with four local classifiers.</p></div>
+      <div class="runtime"><i class="{"online" if model is not None else "offline"}"></i>{status}</div>
+    </header>""")
 if error:
     st.error(error)
-message = st.chat_input("Type a message…", max_chars=LIMIT, disabled=model is None)
-if message and model is not None:
-    try:
-        original = validate(message)
-        row = model.predict(original)
-        st.session_state.history.append(row)
-        st.session_state.last_input = original
-        st.session_state.comparison = None
-    except (ValueError, RuntimeError) as exc:
-        st.error(str(exc))
 
-for row in st.session_state.history:
-    with st.chat_message("user"):
-        st.text(row["display"])
+with st.container(key="desk"):
+    left, right = st.columns([1.05, 1], gap="small")
+with left, st.container(key="message_panel"):
+    st.html('<div class="panel-title"><h2>Message review</h2></div>')
+    feed = st.container()
+    message = st.chat_input("Type a message…", max_chars=LIMIT, disabled=model is None)
+    if message and model is not None:
+        try:
+            original = validate(message)
+            row = model.predict(original)
+            st.session_state.history.append(row)
+            st.session_state.last_input = original
+            st.session_state.comparison = None
+        except (ValueError, RuntimeError) as exc:
+            st.error(str(exc))
+
+rows = st.session_state.history
+with feed:
+    if rows:
+        with st.container(
+            height=337 if len(rows) > 3 else "content", border=False, autoscroll=True
+        ):
+            for number, row in enumerate(rows, 1):
+                tone = "masked" if row["label"] == "OFFENSIVE" else ""
+                st.html(f"""
+                    <article class="message {tone}" aria-label="Message {number}">
+                      <div class="message-top"><span>Message {number:02d}</span>{decision_badge(row["label"])}</div>
+                      <div class="message-body">{escape(row["display"])}</div>
+                      <div class="message-model">{escape(NAMES[row["model"]])}</div>
+                      <div class="message-readings"><span><b>{row["confidence"]:.1%}</b> confidence</span>
+                      <span><b>{row["latency_ms"]:.2f} ms</b> CPU time</span></div>
+                    </article>""")
+    else:
+        st.html("""
+          <div class="empty-feed"><i class="bubble" aria-hidden="true"></i>
+            <strong>Send your first message</strong>
+            <p>Its decision, confidence and CPU time will appear here.</p>
+          </div>""")
+
+with right, st.container(key="comparison_panel"):
+    tag = f"Message {len(rows):02d}" if rows else "Awaiting input"
+    st.html(
+        f'<div class="panel-title"><h2>Model comparison</h2><span class="tag">{tag}</span></div>'
+    )
+    if st.button(
+        "Compare all four models",
+        type="primary",
+        icon=":material/compare_arrows:",
+        disabled=st.session_state.last_input is None,
+        width="stretch",
+    ):
+        with st.spinner("Comparing models…"):
+            st.session_state.comparison = compare_models(st.session_state.last_input)
+    result = st.session_state.comparison
+    if result is None:
+        st.html(
+            '<p class="comparison-note">Compare each model’s decision on the latest message.</p>'
+        )
+    else:
+        decisions = [row["Decision"] for row in result]
+        flagged_count = decisions.count("OFFENSIVE")
+        clean_count = decisions.count("CLEAN")
+        counts = [f"{flagged_count} flagged", f"{clean_count} clean"]
+        if "Unavailable" in decisions:
+            counts.append(f"{decisions.count('Unavailable')} unavailable")
+        st.html(f'<p class="comparison-note result-count">{" · ".join(counts)}</p>')
+    model_rows = []
+    by_model = {row["Model"]: row for row in (result or [])}
+    for key, name in NAMES.items():
+        if result is None:
+            values = f'<span class="pending">{escape(INFO[key])}</span>'
+        elif name not in by_model:
+            values = decision_badge("Unavailable")
+        else:
+            entry = by_model[name]
+            values = (
+                f"{decision_badge(entry['Decision'])}"
+                f'<span class="pair">{escape(entry["Confidence"])} · {escape(entry["CPU time"])}</span>'
+            )
+        model_rows.append(
+            f"<li><strong>{escape(name)}</strong><div>{values}</div></li>"
+        )
+    st.html('<ul class="model-list">' + "".join(model_rows) + "</ul>")
+    if result is not None:
+        rule_label = (
+            "OFFENSIVE" if lexicon_hit(st.session_state.last_input) else "CLEAN"
+        )
+        st.html(
+            f'<div class="rule"><span>Edit-distance baseline</span>{decision_badge(rule_label)}</div>'
+        )
         st.caption(
-            f"{row['label']}  ·  {row['confidence']:.1%} confidence  ·  {row['latency_ms']:.2f} ms  ·  {NAMES[row['model']]}"
+            "Each row shows the decision, selected-class confidence and CPU time."
         )
 
 with session_stats:
-    rows = st.session_state.history
-    st.divider()
-    st.subheader("This session")
-    st.write(
-        f"{len(rows)} messages · {sum(r['label'] == 'OFFENSIVE' for r in rows)} flagged"
+    st.html('<h2 class="side-title">This session</h2>')
+    flagged = sum(row["label"] == "OFFENSIVE" for row in rows)
+    mean = (
+        f"{sum(row['latency_ms'] for row in rows) / len(rows):.2f} ms" if rows else "—"
     )
+    st.html(f"""
+        <div class="session-metrics">
+          <div><span>Reviewed</span><strong>{len(rows)}</strong></div>
+          <div><span>Flagged</span><strong>{flagged}</strong></div>
+        </div><div class="mean"><span>Mean latency</span><b>{mean}</b></div>""")
     if rows:
-        st.caption(
-            f"Mean latency  {sum(r['latency_ms'] for r in rows) / len(rows):.2f} ms"
-        )
-        st.dataframe(
-            [
-                {
-                    "Message": i + 1,
-                    "Model": NAMES[r["model"]],
-                    "ms": round(r["latency_ms"], 2),
-                }
-                for i, r in enumerate(rows)
-            ],
-            hide_index=True,
-        )
-
-if st.session_state.last_input:
-    st.divider()
-    if st.button("Compare all four models"):
-        result = []
-        with st.spinner("Scoring the last message with each model…"):
-            for key, name in NAMES.items():
-                adapter, error = fetch(key)
-                if error:
-                    result.append(
-                        {
-                            "Model": name,
-                            "Decision": "Unavailable",
-                            "Confidence": "—",
-                            "CPU time": "—",
-                        }
-                    )
-                    continue
-                try:
-                    pred = adapter.predict(st.session_state.last_input)
-                    result.append(
-                        {
-                            "Model": name,
-                            "Decision": pred["label"],
-                            "Confidence": f"{pred['confidence']:.1%}",
-                            "CPU time": f"{pred['latency_ms']:.2f} ms",
-                        }
-                    )
-                except (RuntimeError, ValueError) as exc:
-                    st.error(f"{name}: {exc}")
-        st.session_state.comparison = result
-    if st.session_state.comparison is not None:
-        st.dataframe(st.session_state.comparison, hide_index=True)
-        hit = lexicon_hit(st.session_state.last_input)
-        st.caption(
-            "Independent edit-distance rule baseline  ·  "
-            + ("OFFENSIVE" if hit else "CLEAN")
-        )
-    st.caption(
-        "Confidence is the selected class score. Validation thresholds can select a class below 50%. Session text stays in memory."
-    )
+        with st.expander("Response time log"):
+            st.dataframe(
+                [
+                    {
+                        "Message": i,
+                        "CPU time (ms)": round(r["latency_ms"], 2),
+                        "Model": NAMES[r["model"]],
+                    }
+                    for i, r in enumerate(rows, 1)
+                ],
+                hide_index=True,
+            )

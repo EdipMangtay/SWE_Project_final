@@ -1,77 +1,35 @@
-# SentinelAI sunum ve çekim rehberi
-## Hocaya teslim edeceğin üç şey
-Ali Edip Mangtay · 210911044 · SWE015 · Son teslim 22 Kasım 2026 Pazar
+# 1 dakika 55 saniyede SentinelAI
+İkinci bir ekranda veya telefonda bu sayfayı açık tut. Orta sütun elinin yapacağı hareketi, sağ sütun seslendireceğin İngilizce cümleyi gösterir. Yazarken susup Enter’dan sonra konuşabilirsin.
 
-**1. PDF sunum.** Hoca 8–12 slayt istiyor. Hazır sunum 10 slayt. Kapakta adın, numaran, seçtiğin Use Case 4, GitHub ve video bağlantıları bulunmalı. Kayıt yüklenince kapaktaki video alanını tamamla.
-
-**2. Sesli ekran kaydı.** Hoca ilk iki dakikayı izliyor. Uygulama açıkken iki yeni mesajı klavyeden gir. Bunlardan biri zor bir örnek olsun. Ardından mimari şemayı, dört modelin sonuç tablosunu ve çıkarımını göster. Aşağıdaki İngilizce metin yaklaşık iki dakikadan kısa bir anlatım için yazıldı.
-
-**3. Kod deposu.** Hocanın açabildiği GitHub veya GitLab bağlantısını kapağa ve teslim formuna ekle. README, bağımlılıklar ve çalıştırma komutu depoda bulunmalı. Hazırlanan İngilizce teknik rapor ek materyaldir. Zorunlu üç çıktı sunum, video ve kod deposudur.
-
-### On slaytın görevi
-| Slayt | İçerik | Ekranda neyi bulacaksın? |
+| Süre | Ekranda ne yapacaksın? | İngilizce ne söyleyeceksin? |
 |---|---|---|
-| 1 | Kapak | Adın, numaran, Use Case 4 ve teslim bağlantıları |
-| 2–3 | Problem ve veri | Kimin için, 50 ms hedefi, Jigsaw verisi ve ayrımlar |
-| 4 | Mimari | Mesajdan modele, oradan skora, maskeye ve süre kaydına giden yol |
-| 5–7 | Yöntem | A–D teknik haritası, dört modelin eğitimi ve INT8 dönüşümü |
-| 8 | Sonuç tablosu | Her modelin macro-F1, accuracy, MB ve ortalama CPU süresi |
-| 9–10 | Sonuç ve kaynaklar | Gerçek bir hata, sonraki deney, yapay zekâ kullanımı ve kaynakça |
-
-### Kayıttan önce
-Mac’te sohbeti aç. Boş ekran ve **Multilingual BERT · INT8** seçili olsun. İstersen iki örneği bir kez dene, **Compare all four models** düğmesine bas, sonra **Clear session** ile sıfırla. Sunumu iki ayrı sekmede hazırla; birinde 4., diğerinde 8. slaytı açık bırak. Anlatım kartını telefonundan okuyabilirsin.
-
-**Kayıt.** Command + Shift + 5 ile araç çubuğunu aç. Tüm ekranı kaydetmeyi seç. Seçenekler menüsünde Mac’in mikrofonunu işaretle. Sesini kısa bir deneme kaydında dinle. Sohbet sekmesine dönüp Kaydet’e bas. [Apple ekran kaydı kılavuzu](https://support.apple.com/en-us/102618)
-
-<!-- page -->
-## Çekim sırasında okuyacağın metin
-Türkçe satırlar ekranda yapacağın hareketlerdir. Yalnızca İngilizce satırları seslendir. Tuşlara basarken kısa bir duraklama bırak. Saatler yaklaşık geçiş zamanlarıdır.
-
-### 0:00–0:12  ·  Boş sohbet ekranı
-Sol tarafta aktif INT8 modelini göster. Kameranı açman gerekmiyor.
-
-**“Hi, I’m Ali Edip Mangtay. This is SentinelAI. It checks English game chat and hides offensive messages. The model runs on the CPU.”**
-
-### 0:12–0:32  ·  Temiz mesaj
-`Thanks for your help!` yaz ve Enter’a bas. Mesaj ekranda kalınca CLEAN etiketini ve sol taraftaki süreyi işaret et.
-
-**“I’ll send a friendly message. The model marks it clean, so we can still read it. The sidebar shows how long the decision took.”**
-
-### 0:32–0:58  ·  Zor örnek ve karşılaştırma
-`You are a stupid id1ot.` yaz. “id1ot” içindeki karakter 1 rakamıdır. Enter’a bas. **Message hidden** ve **OFFENSIVE** görününce **Compare all four models** düğmesine tıkla. Tabloyu göstermek için gerekirse aşağı kaydır.
-
-**“Now I’ll type an insult with the number one in the word. The model flags it and hides the text. Here are all four models on that same message.”**
-
-### 0:58–1:18  ·  Mimari, slayt 4
-İmleci soldan sağa hareket ettir. Chat input → model → threshold and mask → Streamlit session yolunu göster.
-
-**“The app checks the input. BERT turns the message into tokens and gives it a score. If the score reaches the threshold, the app hides the message.”**
-
-### 1:18–1:43  ·  Sonuç tablosu, slayt 8
-En alttaki INT8 satırını göster. Macro-F1, Size ve Mean sütunlarına işaret et. 35 ms bu tablodaki ortalamadır.
-
-**“I tested all four models on the same five hundred comments. INT eight had the best macro F-one, about zero point eight three. It used less space than full BERT and averaged thirty-five milliseconds.”**
-
-### 1:43–1:55  ·  Kapanış, slayt 9
-8. slayttan bir sayfa ilerle. 16 kaçırılan mesajı göster. Son cümleden sonra menü çubuğundaki Durdur düğmesine bas.
-
-**“It met the fifty-millisecond target, but it missed sixteen offensive comments. Next, I would test it on real gaming conversations. Thank you.”**
+| 0:00–0:12 | Boş sohbetle başla. Soldaki **Multilingual BERT · INT8** seçimini göster. | Hi, I’m Ali Edip Mangtay. SentinelAI checks English game chat and hides offensive messages. It runs on the CPU. |
+| 0:12–0:23 | **Type a message…** kutusuna `Thanks for your help!` yaz. **Enter**’a bas. | I’ll start with a friendly message to a teammate. |
+| 0:23–0:32 | İlk kartta **CLEAN** etiketini ve okunabilen mesajı işaret et. | The model marks it clean, so the message stays visible. |
+| 0:32–0:44 | Aynı kutuya `You are a stupid id1ot.` yaz. **1** rakamını göster, sonra **Enter**’a bas. | I’ll try an insult with a number in the middle of the word. |
+| 0:44–0:54 | İkinci kartta **OFFENSIVE**, **Message hidden** ve **confidence** alanlarını göster. | The model still flags it. The chat hides the words and shows the confidence score. |
+| 0:54–1:05 | Sağda **Compare all four models**’a tıkla. **4 flagged · 0 clean** yazısını ve dört satırı göster. | All four models flagged that same message. Their confidence scores and response times differ. |
+| 1:05–1:13 | Solda **Response time log**’a tıkla. İki mesajın ayrı sürelerini göster. | The sidebar records how long each message took. |
+| 1:13–1:28 | Sunum sekmesine geç. **4** numaralı slaytta girdiden INT8 modele ve maskeleme kararına doğru ilerle. | The tokenizer splits the text into pieces. BERT scores the message. If the score reaches the threshold, the app hides it. |
+| 1:28–1:45 | Üstten **8**’e tıkla. INT8 satırında **0.8262** ve **35.04 ms** değerlerini işaret et. | I tested four models on the same five hundred comments. INT eight had the best macro F-one, about point eight three. It averaged thirty-five milliseconds, below the fifty-millisecond target. |
+| 1:45–1:55 | Üstten **9**’a tıkla. **16 missed** sayısını göster. Son cümleden sonra menü çubuğundaki **Durdur** düğmesine bas. | It still missed sixteen offensive comments. Next, I’d test indirect insults in real game chat. Thank you. |
 
 <!-- page -->
-## Kayıttan sonra
-**İzle.** Dosyayı baştan sona oynat. İki mesajın canlı yazıldığı, ikinci mesajın maskelendiği ve sesinin duyulduğu açık olmalı. 4. slayttaki mimari ile 8. slayttaki tabloyu iki dakikadan önce göstermiş ol.
+# Kayda hazırlanırken
+**1. Uygulamayı ve sunumu aç.** Mac’te proje klasöründeki `Demoyu_Ac.command` dosyasına çift tıkla. Terminal açılırsa açık bırak. Uygulama ve sunum Safari’de açılır. Dosya açılmazsa proje klasöründe Terminal açıp `zsh Demoyu_Ac.command` çalıştır. Sunum sekmesinin üstünde **4**’ü seç, sonra uygulamaya dön.
 
-**Yükle.** Videoyu YouTube’a “Liste dışı” veya Google Drive’a “Bağlantıya sahip herkes görüntüleyebilir” seçeneğiyle yükle. Çıkış yapılmış bir gizli pencerede videonun oynadığını ve GitHub deposunun açıldığını dene.
+**2. Ekranı hazırla.** Tarayıcı penceresini büyüt. Solda **Active model**, ortada **Message review**, sağda **Model comparison** görünmeli. Dar pencerede karşılaştırma altta yer alır. Sol panel kapalıysa sol üstteki açma düğmesine bas. Model olarak **Multilingual BERT · INT8** seç.
 
-**Kapağı tamamla.** Video bağlantısını paylaşınca PDF güncellenebilir. Kendin yapmak istersen proje kökündeki `docs/submission.json` dosyasında `video_url` alanına gerçek bağlantıyı yaz. Python ortamı açıkken `python -m scripts.presentation` çalıştır. Yenilenen dosya `docs/presentation.pdf`. Kapaktaki iki bağlantıya da tıkla ve PDF’yi güncel sürümüyle depoya gönder.
+**3. Bir kez prova et.** Bir deneme mesajı gönder, **Compare all four models**’a bas ve sonuçları bekle. **Clear session**’a bas. Başlangıçta **Reviewed 0**, **Flagged 0** ve boş mesaj kutusunu gör. Kayıtta iki mesajı da yeniden klavyeden yaz.
 
-**Teslim et.** Dersin teslim formuna güncellenmiş PDF’yi ekle. Kod deposu ve video bağlantısını formdaki ilgili alanlara koy. Hoca ek dosyaya izin veriyorsa teknik raporu da ekleyebilirsin. [SWE_Project_final kod deposu](https://github.com/EdipMangtay/SWE_Project_final)
+**4. Sesini kontrol et.** Bildirimleri sessize al. **Command + Shift + 5** tuşlarına bas. **Tüm Ekranı Kaydet** simgesini seç. **Seçenekler → Mikrofon** altında Mac mikrofonunu işaretle. Beş saniyelik bir deneme çekip sesini dinle. Ardından aynı menüden asıl kaydı başlat. Ödev, ekran görüntüsüyle birlikte sesli anlatım istiyor. Yüz kamerası şartı belirtilmiyor.
 
-### Hoca sorarsa kısa cevaplar
-**“Neden macro-F1?”** Testte 450 temiz ve yalnızca 50 saldırgan mesaj var. Her mesaja CLEAN demek bile %90 doğruluk verir. Macro-F1, iki sınıfın F1 puanına eşit ağırlık verir.
+### Hangi değerleri söyleyeceksin?
+**Canlı örnekler.** Bu sürümde provalanan ilk mesaj CLEAN ve %100,0, ikinci mesaj OFFENSIVE ve %98,5 çıktı. Yüzdeler arayüzde yuvarlanır. Canlı CPU süreleri her denemede değişebilir. Kartlarda sayıları işaret etmen yeterli.
 
-**“INT8 ne kazandırdı?”** Boyut 714,36 MB’tan 182,93 MB’a indi. Bu Mac’te tam hassasiyetli BERT daha hızlıydı. INT8 ortalamada 35,04 ms ile 50 ms hedefini yine de karşıladı.
+**Slayt 8.** 500 yorum sınıflandırma testine aittir. 35,04 ms, Apple M3 Pro’da INT8 için ayrı ölçülen 150 zamanlamanın ortalamasıdır. “Thirty-five milliseconds” cümlesini bu slayta geldiğinde söyle. INT8 model boyutu 182,93 MB, tam hassasiyetli BERT 714,36 MB. INT8’in kazancı bu deneyde boyut ve macro-F1 oldu.
 
-**“Skor neyi gösteriyor?”** Model saldırganlık için bir skor üretir. INT8 eşiği 0,575. Uygulama eşik aşılınca metni maskeler. Arayüzdeki güven puanı modelin seçilen sınıfa verdiği skordur.
+**Slayt 9.** 50 saldırgan yorumun 34’ü yakalandı, 16’sı kaçtı. 450 temiz yorumun 15’i gereksiz yere gizlendi. Bir limitasyon ve mantıklı bir sonraki deney anlatmak için bu slaytı kullan.
 
-**“Nerede hata yaptı?”** Testteki 50 saldırgan yorumun 34’ünü yakaladı, 16’sını kaçırdı. 450 temiz yorumun 15’ini de gereksiz yere gizledi. Slayt 9 dolaylı düşmanlık içeren gerçek bir kaçırma örneğini gösteriyor.
+### Teslimden önce
+Kaydı oynat. İki yeni mesajın yazılması, sesin, mimari ve sonuç tablosu ilk iki dakikaya sığmalı. Videoyu YouTube’a **liste dışı** veya Drive’a **bağlantıya sahip herkes görüntüleyebilir** olarak yükle. Video ve depo bağlantılarını gizli pencerede dene. Gerçek video bağlantısını `docs/submission.json` içindeki `video_url` alanına girip proje ortamında `python -m scripts.presentation` çalıştır. **Yenilenen dosya docs/presentation.pdf**. Güncellenen PDF’yi ve bağlantıyı depoya gönder. Bu PDF’yi ve iki bağlantıyı dersin teslim formuna ekle. R8 gereği 10. slayttaki AI kullanım açıklamasını koru.

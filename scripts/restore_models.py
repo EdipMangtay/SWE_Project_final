@@ -3,9 +3,14 @@
 import argparse
 import hashlib
 import json
+import shutil
+import subprocess
+import sys
+from urllib.request import urlopen
 import tempfile
 import zipfile
 from pathlib import Path
+from filelock import FileLock
 import numpy as np
 from safetensors import safe_open
 from safetensors.numpy import save_file
@@ -99,39 +104,116 @@ def restore(base, patch, dest):
             temp.unlink(missing_ok=True)
 
 
+# The companion is data for this exact trained run. Large base weights come from Hugging Face.
+COMPANION_URL = "https://github.com/EdipMangtay/SWE_Project_final/releases/download/v1.1.0/SentinelAI_Model_Files.zip"
+COMPANION_SHA256 = "60d589aa2263324bf49555020850d7e1882b4c7f35d258c0b463ad010ed75959"
+ARTIFACT_FILES = (
+    "tfidf/metadata.json",
+    "tfidf/pipeline.joblib",
+    "neural/metadata.json",
+    "neural/network.pt",
+    "neural/vectors.npz",
+    "bert/config.json",
+    "bert/metadata.json",
+    "bert/tokenizer.json",
+    "bert/tokenizer_config.json",
+    "int8/config.json",
+    "int8/metadata.json",
+    "int8/tokenizer.json",
+    "int8/tokenizer_config.json",
+)
+
+
+def download_verified(url, dest, checksum):
+    if dest.is_file() and digest(dest) == checksum:
+        return
+    with tempfile.NamedTemporaryFile(dir=dest.parent, delete=False) as tmp:
+        part = Path(tmp.name)
+    try:
+        with urlopen(url, timeout=120) as response, part.open("wb") as out:
+            shutil.copyfileobj(response, out, length=1024 * 1024)
+        if digest(part) != checksum:
+            raise ValueError(f"Checksum mismatch for {dest.name}. Retry the download.")
+        part.replace(dest)
+    finally:
+        part.unlink(missing_ok=True)
+
+
+def ensure_training_files(patch):
+    required = [FINAL / "artifacts" / name for name in ARTIFACT_FILES] + [patch]
+    if all(p.is_file() and p.stat().st_size for p in required):
+        return
+    print(
+        "Downloading the verified training patch and fitted classifiers (48 MB)…",
+        flush=True,
+    )
+    with tempfile.TemporaryDirectory(dir=ROOT / ".work") as tmp:
+        cache = Path(tmp)
+        bundle = cache / "companion.zip"
+        download_verified(COMPANION_URL, bundle, COMPANION_SHA256)
+        with zipfile.ZipFile(bundle) as archive:
+            for path in (
+                *required,
+                ROOT / "weights/NOTICE.txt",
+                ROOT / "weights/APACHE-2.0.txt",
+            ):
+                relative = path.relative_to(ROOT)
+                archive.extract(relative.as_posix(), cache)
+                path.parent.mkdir(parents=True, exist_ok=True)
+                (cache / relative).replace(path)
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument(
-        "--base-file",
-        type=Path,
-        help="Use the pinned public model.safetensors already on disk.",
+        "--base-file", type=Path, help="Use the pinned base checkpoint already on disk."
     )
-    p.add_argument(
-        "--pack",
+    mode = p.add_mutually_exclusive_group()
+    mode.add_argument(
+        "--pack", action="store_true", help="Create the patch from a trained run."
+    )
+    mode.add_argument(
+        "--if-needed",
         action="store_true",
-        help="Create the portable patch from a completed final training run.",
+        help="Keep a complete local model installation.",
     )
     args = p.parse_args()
-    base = args.base_file
-    if base is None:
-        from huggingface_hub import hf_hub_download
-
-        base = Path(hf_hub_download(BASE, "model.safetensors", revision=REVISION))
-    patch = ROOT / "weights" / "final-bert.patch.zip"
-    dest = FINAL / "artifacts/bert/model.safetensors"
-    if args.pack:
-        patch.parent.mkdir(exist_ok=True)
-        pack(base, dest, patch)
-    else:
+    work = ROOT / ".work"
+    work.mkdir(exist_ok=True)
+    with FileLock(str(work / "model-setup.lock")):
+        folder = FINAL / "artifacts"
+        needed = [
+            folder / name
+            for name in (*ARTIFACT_FILES, "bert/model.safetensors", "int8/int8.pt")
+        ]
+        if args.if_needed and all(
+            path.is_file() and path.stat().st_size for path in needed
+        ):
+            return
+        patch = ROOT / "weights/final-bert.patch.zip"
+        if not args.pack:
+            ensure_training_files(patch)
+        base = args.base_file
+        if base is None:
+            base = work / "base-model.safetensors"
+            download_verified(
+                f"https://huggingface.co/{BASE}/resolve/{REVISION}/model.safetensors",
+                base,
+                BASE_SHA256,
+            )
+        target = folder / "bert/model.safetensors"
+        if args.pack:
+            patch.parent.mkdir(exist_ok=True)
+            pack(base, target, patch)
+            return
         seed()
-        restore(base, patch, dest)
+        restore(base, patch, target)
         export_int8(FINAL)
-        print("Restored and verified every FP32 tensor, then exported the INT8 model.")
-        import subprocess
-        import sys
-
         subprocess.run(
             [sys.executable, "-m", "scripts.check_int8"], cwd=ROOT, check=True
+        )
+        print(
+            "Restored and verified every FP32 tensor and reloaded the INT8 classifier."
         )
 
 

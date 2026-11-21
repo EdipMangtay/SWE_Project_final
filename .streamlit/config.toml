@@ -1,9 +1,22 @@
 [theme]
-base = "dark"
-primaryColor = "#80DEC1"
-backgroundColor = "#141B20"
-secondaryBackgroundColor = "#1D282E"
-textColor = "#ECF1EF"
+base = "light"
+primaryColor = "#17614d"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#edf2eb"
+textColor = "#192e28"
+borderColor = "#d4dfd5"
+dataframeHeaderBackgroundColor = "#edf2eb"
+baseRadius = "0.7rem"
+buttonRadius = "0.6rem"
+showWidgetBorder = true
 font = "sans serif"
+
+[theme.sidebar]
+backgroundColor = "#f8faf6"
+secondaryBackgroundColor = "#ffffff"
+
+[client]
+toolbarMode = "viewer"
+
 [browser]
 gatherUsageStats = false
