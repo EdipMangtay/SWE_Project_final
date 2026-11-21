@@ -4,19 +4,17 @@ SentinelAI is a Streamlit chat application for SWE015 Use Case 4. It flags Engli
 
 **Ali Edip Mangtay · 210911044 · İstinye University**
 
-| Course material | File |
+| Deliverable | File / Link |
 |---|---|
-| Ten-slide presentation | [PDF for submission](docs/presentation.pdf) · [PowerPoint](delivery/SentinelAI_Ali_Edip_Mangtay_210911044.pptx) · [Offline browser slides](delivery/Sunumu_Ac.html) |
-| Two-minute narrated demo | [Watch on YouTube](https://www.youtube.com/watch?v=y2xdjGgESAE) |
-| Methods, results and error analysis | [Technical report PDF](docs/technical_report.pdf) |
-| Video preparation and timed English narration | [Recording guide PDF](docs/video_rehberi.pdf) |
-| Measured results for all four models | [Comparison CSV](runs/final/results/comparison.csv) |
+| Presentation (10 slides, PDF) | [`docs/presentation.pdf`](docs/presentation.pdf) |
+| Two-minute narrated demo video | [Watch on YouTube](https://www.youtube.com/watch?v=y2xdjGgESAE) |
+| Architecture & technique map | [`docs/architecture.md`](docs/architecture.md) · [`docs/technique_map.md`](docs/technique_map.md) |
+| Experiment report & error analysis | [`docs/experiment_report.md`](docs/experiment_report.md) |
+| Held-out results for all four models | [`runs/final/results/comparison.csv`](runs/final/results/comparison.csv) |
 
 ## Run the project
 
-On macOS with Python 3.12 installed, run `zsh Baslat.command` from the project folder. For a recording, `zsh Demoyu_Ac.command` opens the app and slide 4 in Safari. The launcher installs the pinned dependencies on first use, restores the trained models and starts Streamlit. The initial setup requires internet and several GB of free space. Later launches use the local files.
-
-On another computer with 64-bit Python 3.12 and a supported PyTorch CPU INT8 backend, create and activate an environment, then install the project. On Windows use `.venv\Scripts\activate` for activation.
+With 64-bit Python 3.12 and a supported PyTorch CPU INT8 backend, create and activate a virtual environment, install the pinned dependencies, and restore the model artifacts. On Windows use `.venv\Scripts\activate` for activation.
 
 ```sh
 python3.12 -m venv .venv
@@ -37,9 +35,9 @@ streamlit run app.py
 
 Open the local address printed by Streamlit. Try “Thanks for your help!” followed by “You are a stupid id1ot.” The saved INT8 model displayed the first message and masked the second in the verification run. Clear the session with the sidebar button. Long messages are capped at 4,096 characters. BERT processes up to 64 WordPiece tokens.
 
-## Reproduce training, evaluation and the slides
+## Reproduce training and evaluation
 
-Run commands from the project root with the environment active.
+Run commands from the project root with the virtual environment active.
 
 ```sh
 python -m scripts.verify_environment
@@ -48,12 +46,10 @@ python -m scripts.evaluate_all --mode dev
 python -m scripts.train_all --mode final
 python -m scripts.evaluate_all --mode final
 python -m scripts.figures
-python -m scripts.presentation
 python -m pytest -q --junitxml=runs/final/results/tests.xml
-python -m scripts.verify_submission
 ```
 
-Development uses 300 genuine Jigsaw records and reduced epochs under `runs/dev/`. The final run uses 5,000 examples under `runs/final/`. Use the supplied final results for the delivered deck. Training again updates that run's files. To keep the delivered snapshot intact, train in a second extracted copy. The audit exits with a nonzero code while submission items are missing.
+Development uses 300 genuine Jigsaw records and reduced epochs under `runs/dev/`. The final run uses 5,000 examples under `runs/final/`. Training again updates that run's files. To keep the delivered snapshot intact, train in a separate copy.
 
 The data stage downloads the pinned labeled Jigsaw training file. An official Kaggle download also works: `python -m scripts.train_all --stage data --raw /path/to/train.csv`. Then train stages `tfidf`, `neural`, `bert` and `int8` individually with `--stage`. For offline BERT training provide the original local checkpoint directory with `--checkpoint /path/to/mbert`. Run `python -m scripts.train_all --stage data` to reconstruct input splits before re-running evaluation in a portable copy. Training supports CUDA, Apple MPS when available, and CPU. Inference and benchmarking always run on CPU.
 
@@ -76,18 +72,13 @@ The independent Levenshtein lexicon baseline is evaluated alongside a TF-IDF/log
 
 ## Files
 
-- `app.py`, `.streamlit/config.toml` — chat, masking, session history and model comparison.
-- `sentinel/` — data, normalization, model adapters, training and quantization.
-- `scripts/` — data/training entry point, evaluation, restore, plots, presentation and audit.
-- `runs/final/artifacts/` — one runnable directory per model after restoration.
-- `runs/final/results/` — split IDs, training logs, predictions, CPU measurements, test and audit output.
-- `weights/` — the portable lossless patch, distributed separately from public repository source.
-- `tests/` — preprocessing, real model inference, export consistency and Streamlit integration tests.
-- `docs/` — PDF presentation, editable cover configuration, figures, report, technique map, narration, recording checklist and AI declaration.
-
-## Submission and links
-
-The cover slide of [`docs/presentation.pdf`](docs/presentation.pdf) and [`docs/submission.json`](docs/submission.json) include both the GitHub repository ([`https://github.com/EdipMangtay/SWE_Project_final`](https://github.com/EdipMangtay/SWE_Project_final)) and the two-minute demo video ([`https://www.youtube.com/watch?v=y2xdjGgESAE`](https://www.youtube.com/watch?v=y2xdjGgESAE)). If you update `docs/submission.json`, run `python -m scripts.presentation` to regenerate the presentation PDF. On macOS, to refresh the PowerPoint and self-contained HTML copies as well, install `python-pptx==1.0.2`, run `python -m scripts.presentation --powerpoint`, then `python -m scripts.offline_slides`. Use `python -m scripts.handouts` to regenerate the technical report and recording guide from their Markdown sources.
+- `app.py`, `.streamlit/config.toml` — interactive chat interface, offensive message masking, session timing log and side-by-side four-model comparison.
+- `sentinel/` — dataset preparation, regex/leetspeak normalization, edit-distance lexicon rule, Word2Vec + feedforward network, multilingual BERT fine-tuning and INT8 dynamic/embedding quantization.
+- `scripts/` — training entry point (`train_all.py`), held-out evaluation and CPU latency benchmark (`evaluate_all.py`), weight restoration (`restore_models.py`), figures (`figures.py`) and runtime checks.
+- `runs/final/artifacts/` — runnable local model directories populated after running `python -m scripts.restore_models --if-needed`.
+- `runs/final/results/` — frozen split IDs, training logs, held-out predictions, 150-run CPU latency measurements and test results.
+- `tests/` — unit and integration tests for text normalization, edit distance, model inference, benchmark exports and Streamlit UI interactions.
+- `docs/` — final 10-slide presentation ([`docs/presentation.pdf`](docs/presentation.pdf)), architecture diagram, technique map, experiment report and AI usage statement.
 
 ## Troubleshooting
 

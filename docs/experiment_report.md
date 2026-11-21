@@ -63,7 +63,7 @@ TF-IDF had the smallest footprint. Word2Vec was fastest and detected the most of
 <!-- page -->
 ## Reproduction and limits
 ### Running the submitted system
-Clone the linked repository and extract the trained-model release into its root. Install the pinned requirements with Python 3.12 and run `streamlit run app.py`. On macOS, `zsh Baslat.command` also sets up the local environment. The release includes the fitted classical and neural models, tokenizers and both BERT variants.
+Clone the linked repository, install the pinned requirements with Python 3.12, run `python -m scripts.restore_models --if-needed` (or extract the prebuilt release archive into the repository root) and launch `streamlit run app.py`. The release includes the fitted classical and neural models, tokenizers and both BERT variants.
 
 The measured configuration used Python 3.12.15, PyTorch 2.14.1, Transformers 5.20.2 and QNNPACK on macOS arm64. The source includes the pinned data and pretrained model revisions, split IDs, prediction CSVs, training histories and individual benchmark timings. The test suite covers preprocessing, reload, inference, masking, changing models, comparison and session reset.
 

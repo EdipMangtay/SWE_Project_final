@@ -6,9 +6,7 @@ runs/dev/
 runs/*/data/
 runs/*/artifacts/
 weights/
-delivery/*
-!delivery/Sunumu_Ac.html
-!delivery/SentinelAI_Ali_Edip_Mangtay_210911044.pptx
+delivery/
 __pycache__/
 .pytest_cache/
 .ruff_cache/
