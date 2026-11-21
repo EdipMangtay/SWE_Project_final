@@ -73,7 +73,7 @@ The test set contains 50 offensive examples from Wikipedia discussions. A two-ex
 Short game chat has different vocabulary, spelling and conversational context. A next experiment would label real gaming messages, distinguish direct and indirect abuse, and compare recall at several moderation thresholds. Deployment testing should measure end-to-end response times with concurrent users and cold model loads.
 
 ### Evidence and attribution
-[Source code and reproduction instructions](https://github.com/EdipMangtay/SWE_Project_final) · [Held-out predictions and timing records](https://github.com/EdipMangtay/SWE_Project_final/tree/main/runs/final/results)
+[Source code and reproduction instructions](https://github.com/EdipMangtay/SWE_Project_final) · [Two-minute narrated demo video](https://www.youtube.com/watch?v=y2xdjGgESAE) · [Held-out predictions and timing records](https://github.com/EdipMangtay/SWE_Project_final/tree/main/runs/final/results)
 
 [Jigsaw Toxic Comment Classification Challenge](https://www.kaggle.com/competitions/jigsaw-toxic-comment-classification-challenge) · [Dataset mirror used in this run](https://huggingface.co/datasets/Heliosoph/Jigsaw-Toxic-Comments)
 

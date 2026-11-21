@@ -213,22 +213,33 @@ def build(powerpoint=False):
         GREEN,
     )
     s.rule(48, 395, 864, "#497467")
-    s.text(49, 430, cover["name"], 23, BOLD, WHITE)
+    s.text(49, 434, cover["name"], 23, BOLD, WHITE)
     s.text(
-        49, 460, f"Student ID {cover['student_id']}    /    Use Case 4", 16, SANS, LIGHT
+        49, 464, f"Student ID {cover['student_id']}    /    Use Case 4", 16, SANS, LIGHT
     )
-    s.text(555, 430, "GitHub repository", 18, BOLD, WHITE, link=repo)
-    s.text(
-        555,
-        462,
-        "Watch the two-minute demo"
-        if cover["video_url"]
-        else "Demo video link pending",
-        17,
-        SANS,
-        MINT,
-        link=cover["video_url"],
-    )
+    s.text(555, 424, "GitHub repository", 16, BOLD, WHITE, link=repo)
+    s.text(555, 443, repo, 12.5, SANS, MINT, link=repo)
+    if cover["video_url"]:
+        s.text(
+            555,
+            474,
+            "Watch the two-minute demo",
+            16,
+            BOLD,
+            WHITE,
+            link=cover["video_url"],
+        )
+        s.text(
+            555,
+            493,
+            cover["video_url"],
+            12.5,
+            SANS,
+            MINT,
+            link=cover["video_url"],
+        )
+    else:
+        s.text(555, 474, "Demo video link pending", 16, SANS, MINT)
     s.end(
         "I built SentinelAI for a gaming chat moderator. My question was whether a smaller BERT could flag offensive English messages within a mean CPU budget of 50 milliseconds."
     )

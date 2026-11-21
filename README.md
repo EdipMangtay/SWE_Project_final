@@ -7,6 +7,7 @@ SentinelAI is a Streamlit chat application for SWE015 Use Case 4. It flags Engli
 | Course material | File |
 |---|---|
 | Ten-slide presentation | [PDF for submission](docs/presentation.pdf) · [PowerPoint](delivery/SentinelAI_Ali_Edip_Mangtay_210911044.pptx) · [Offline browser slides](delivery/Sunumu_Ac.html) |
+| Two-minute narrated demo | [Watch on YouTube](https://www.youtube.com/watch?v=y2xdjGgESAE) |
 | Methods, results and error analysis | [Technical report PDF](docs/technical_report.pdf) |
 | Video preparation and timed English narration | [Recording guide PDF](docs/video_rehberi.pdf) |
 | Measured results for all four models | [Comparison CSV](runs/final/results/comparison.csv) |
@@ -86,7 +87,7 @@ The independent Levenshtein lexicon baseline is evaluated alongside a TF-IDF/log
 
 ## Submission and links
 
-After recording, enter the unlisted YouTube or link-accessible Google Drive URL in the `video_url` field of `docs/submission.json`. Run `python -m scripts.presentation` to regenerate the presentation, and publish the updated configuration and PDF. The code and model download links are already configured. The cover needs both the repository and video link for course submission. On macOS, to refresh the optional PowerPoint and self-contained HTML copies as well, install `python-pptx==1.0.2`, run `python -m scripts.presentation --powerpoint`, then `python -m scripts.offline_slides`. Use `python -m scripts.handouts` to regenerate the technical report and recording guide from their Markdown sources.
+The cover slide of [`docs/presentation.pdf`](docs/presentation.pdf) and [`docs/submission.json`](docs/submission.json) include both the GitHub repository ([`https://github.com/EdipMangtay/SWE_Project_final`](https://github.com/EdipMangtay/SWE_Project_final)) and the two-minute demo video ([`https://www.youtube.com/watch?v=y2xdjGgESAE`](https://www.youtube.com/watch?v=y2xdjGgESAE)). If you update `docs/submission.json`, run `python -m scripts.presentation` to regenerate the presentation PDF. On macOS, to refresh the PowerPoint and self-contained HTML copies as well, install `python-pptx==1.0.2`, run `python -m scripts.presentation --powerpoint`, then `python -m scripts.offline_slides`. Use `python -m scripts.handouts` to regenerate the technical report and recording guide from their Markdown sources.
 
 ## Troubleshooting
 

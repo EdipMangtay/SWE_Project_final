@@ -1,5 +1,5 @@
 {
-  "status": "NOT SUBMISSION READY — CRITICAL REQUIREMENT MISSING",
+  "status": "SUBMISSION READY — ALL AUTOMATED GATES PASSED",
   "checks": [
     {
       "gate": 1,
@@ -46,8 +46,8 @@
     {
       "gate": 1,
       "item": "Accessible demo video",
-      "status": "FAIL",
-      "evidence": "A valid project-specific link is missing."
+      "status": "PASS",
+      "evidence": "HTTPS availability; verify anonymous access in a private browser."
     },
     {
       "gate": 1,
@@ -118,8 +118,8 @@
     {
       "gate": 2,
       "item": "Cover identity and both external links",
-      "status": "FAIL",
-      "evidence": "Evidence absent or inconsistent."
+      "status": "PASS",
+      "evidence": "Verified PDF link annotations and student ID."
     },
     {
       "gate": 2,

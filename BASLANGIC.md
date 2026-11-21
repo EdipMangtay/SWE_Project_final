@@ -5,6 +5,7 @@
 Mac’inde proje klasöründeki `Baslat.command` dosyasına çift tıkla veya Terminal’de aynı klasörden `zsh Baslat.command` çalıştır. Adresi [http://127.0.0.1:8501](http://127.0.0.1:8501). Başka bir bilgisayardan çalıştırmak için [README](README.md) kurulum adımlarını izle.
 
 - [Hocanın istediği PDF sunum](docs/presentation.pdf)
+- [2 dakikalık YouTube demo videosu](https://www.youtube.com/watch?v=y2xdjGgESAE)
 - [İngilizce teknik rapor](docs/technical_report.pdf)
 - [Mac ekran kaydı adımları ve İngilizce konuşma metni](docs/video_rehberi.pdf)
 - [Deney sonuçları](runs/final/results/comparison.csv)

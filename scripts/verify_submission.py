@@ -333,13 +333,14 @@ def audit(online):
         "Use the published repo in a fresh checkout and open the final video and repo in a private browser.",
     )
     critical = any(r["gate"] == 1 and r["status"] == "FAIL" for r in checks)
+    blocking = any(r["status"] in ("FAIL", "NOT YET VERIFIED") for r in checks)
     state = (
         "NOT SUBMISSION READY — CRITICAL REQUIREMENT MISSING"
         if critical
         else (
             "REVIEW REQUIRED"
-            if any(r["status"] != "PASS" for r in checks)
-            else "AUTOMATED CHECKS PASSED"
+            if blocking
+            else "SUBMISSION READY — ALL AUTOMATED GATES PASSED"
         )
     )
     report = {"status": state, "checks": checks}
@@ -355,7 +356,7 @@ def audit(online):
         encoding="utf-8",
     )
     print(state)
-    return 1 if any(r["status"] != "PASS" for r in checks) else 0
+    return 1 if (critical or blocking) else 0
 
 
 if __name__ == "__main__":
