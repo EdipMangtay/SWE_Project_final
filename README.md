@@ -6,7 +6,7 @@ SentinelAI is a Streamlit chat application for SWE015 Use Case 4. It flags Engli
 
 | Deliverable | File / Link |
 |---|---|
-| Presentation (10 slides, PDF) | [`docs/presentation.pdf`](docs/presentation.pdf) |
+| Presentation (10 slides, PDF) | [`docs/sunum.pdf`](docs/sunum.pdf) · [`docs/presentation.pdf`](docs/presentation.pdf) |
 | Two-minute narrated demo video | [Watch on YouTube](https://www.youtube.com/watch?v=y2xdjGgESAE) |
 | Architecture & technique map | [`docs/architecture.md`](docs/architecture.md) · [`docs/technique_map.md`](docs/technique_map.md) |
 | Experiment report & error analysis | [`docs/experiment_report.md`](docs/experiment_report.md) |
@@ -78,7 +78,7 @@ The independent Levenshtein lexicon baseline is evaluated alongside a TF-IDF/log
 - `runs/final/artifacts/` — runnable local model directories populated after running `python -m scripts.restore_models --if-needed`.
 - `runs/final/results/` — frozen split IDs, training logs, held-out predictions, 150-run CPU latency measurements and test results.
 - `tests/` — unit and integration tests for text normalization, edit distance, model inference, benchmark exports and Streamlit UI interactions.
-- `docs/` — final 10-slide presentation ([`docs/presentation.pdf`](docs/presentation.pdf)), architecture diagram, technique map, experiment report and AI usage statement.
+- `docs/` — final 10-slide presentation ([`docs/sunum.pdf`](docs/sunum.pdf) and [`docs/presentation.pdf`](docs/presentation.pdf)), architecture diagram, technique map, experiment report and AI usage statement.
 
 ## Troubleshooting
 
